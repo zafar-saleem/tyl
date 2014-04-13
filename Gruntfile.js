@@ -10,6 +10,15 @@ module.exports = function (grunt) {
 			}
 		},
 
+		csslint: {
+			options: {
+				csslintrc: '.csslintrc'
+			},
+			target: {
+				src: 'src/css/**/*.css'
+			}
+		},
+
 		copy: {
 			dist: {
 				cwd: 'src/', expand: true, src: '**', dest: 'dist/'
@@ -70,6 +79,7 @@ module.exports = function (grunt) {
 	});
 	
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-csslint');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -78,5 +88,5 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	// grunt.loadNpmTasks('grunt-uncss');
 	
-	grunt.registerTask('default', ['jshint', 'copy', 'concat', 'uglify', 'cssmin', 'clean', 'processhtml']);
+	grunt.registerTask('default', ['jshint', 'csslint', 'copy', 'concat', 'uglify', 'cssmin', 'clean', 'processhtml']);
 }
