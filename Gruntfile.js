@@ -1,27 +1,63 @@
 module.exports = function (grunt) {
 	grunt.initConfig({
 
+		jshint: {
+			options: {
+				jshintrc: '.jshintrc'
+			},
+			target: {
+				src: 'src/js/**/*.js'
+			}
+		},
+
 		copy: {
 			dist: {
 				cwd: 'src/', expand: true, src: '**', dest: 'dist/'
 			}
 		},
 
-		uglify: {
-			dist: {
-				files: {
-					'dist/js/compiled.min.js': ['src/js/jquery.js', 'src/js/*.js'] // make sure jquery is loaded first
-				}
+		concat: {
+			options: {
+				// separator: ';'
+			},
+			target: {
+				src: ['dist/js/jquery.js', 'dist/js/**/*.js'], // make sure jquery is loaded first
+				dest: 'dist/js/compiled.js'
 			}
 		},
 
-		uncss: {
-			dist: {
-				files: [
-					{ src: 'src/*.html', dest: 'dist/css/compiled.min.css' }
-				]
+		uglify: {
+			options: {
+				mangle: true,
+				compress: true,
+				banner: '/* Test banner */\n'
+			},
+			target: {
+				src: 'dist/js/compiled.js',
+				dest: 'dist/scripts/compiled.min.js'
 			}
 		},
+
+		// uncss: {
+		// 	dist: {
+		// 		files: [
+		// 			{ src: 'src/*.html', dest: 'dist/css/compiled.min.css' }
+		// 		]
+		// 	}
+		// },
+
+		cssmin: {
+			options: {
+				// banner: '/* My minified css file */'
+			},
+			target: {
+				src: 'dist/css/*.css',
+				dest: 'dist/styles/compiled.min.css'
+			}
+		},
+
+		// Deletes all .js files, but skips min.js files
+		clean: ['dist/js/', 'dist/css/'],
 
 		processhtml: {
 			dist: {
@@ -32,11 +68,15 @@ module.exports = function (grunt) {
 		}
 
 	});
-
+	
+	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-uncss');
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-processhtml');
-
-	grunt.registerTask('default', ['copy', 'uglify', 'uncss', 'processhtml']);
+	grunt.loadNpmTasks('grunt-contrib-clean');
+	// grunt.loadNpmTasks('grunt-uncss');
+	
+	grunt.registerTask('default', ['jshint', 'copy', 'concat', 'uglify', 'cssmin', 'clean', 'processhtml']);
 }
