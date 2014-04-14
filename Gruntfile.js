@@ -47,13 +47,13 @@ module.exports = function (grunt) {
 			}
 		},
 
-		// uncss: {
-		// 	dist: {
-		// 		files: [
-		// 			{ src: 'src/*.html', dest: 'dist/css/compiled.min.css' }
-		// 		]
-		// 	}
-		// },
+		uncss: {
+			dist: {
+				files: [
+					{ src: 'src/*.html', dest: 'dist/css/compiled.min.css' }
+				]
+			}
+		},
 
 		cssmin: {
 			options: {
@@ -86,7 +86,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-processhtml');
 	grunt.loadNpmTasks('grunt-contrib-clean');
-	// grunt.loadNpmTasks('grunt-uncss');
+	grunt.loadNpmTasks('grunt-uncss');
 	
-	grunt.registerTask('default', ['jshint', 'csslint', 'copy', 'concat', 'uglify', 'cssmin', 'clean', 'processhtml']);
+	grunt.registerTask('default', ['jshint', 'uncss', 'csslint', 'copy', 'concat', 'uglify', 'cssmin', 'clean', 'processhtml']);
 }
