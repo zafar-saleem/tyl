@@ -6,7 +6,7 @@ module.exports = function (grunt) {
 				jshintrc: '.jshintrc'
 			},
 			target: {
-				src: 'src/js/**/*.js'
+				src: 'src/js/*.js'
 			}
 		},
 
@@ -15,7 +15,7 @@ module.exports = function (grunt) {
 				csslintrc: '.csslintrc'
 			},
 			target: {
-				src: 'src/css/**/*.css'
+				src: 'src/css/*.css'
 			}
 		},
 
