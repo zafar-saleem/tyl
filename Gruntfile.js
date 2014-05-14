@@ -26,11 +26,9 @@ module.exports = function (grunt) {
 		},
 
 		concat: {
-			options: {
-				// separator: ';'
-			},
+			options: {},
 			target: {
-				src: ['dist/js/jquery.js', 'dist/js/**/*.js'], // make sure jquery is loaded first
+				src: ['dist/js/jquery/dist/jquery.js', 'dist/js/**/*.js'], // make sure jquery is loaded first
 				dest: 'dist/js/compiled.js'
 			}
 		},
@@ -56,9 +54,7 @@ module.exports = function (grunt) {
 		},
 
 		cssmin: {
-			options: {
-				// banner: '/* My minified css file */'
-			},
+			options: {},
 			target: {
 				src: 'dist/css/*.css',
 				dest: 'dist/styles/compiled.min.css'
