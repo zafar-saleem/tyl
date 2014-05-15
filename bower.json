@@ -1,0 +1,18 @@
+{
+  "name": "app-boilerplate",
+  "version": "1.0.0",
+  "homepage": "https://github.com/zafar-saleem/app-boilerplate",
+  "authors": [
+    "Zafar Saleem"
+  ],
+  "description": "Boilerplate for apps from scratch",
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "jquery": null,
+    "underscore": null,
+    "requirejs": null
+  }
+}

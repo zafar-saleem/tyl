@@ -28,8 +28,13 @@ module.exports = function (grunt) {
 		concat: {
 			options: {},
 			target: {
-				src: ['dist/js/jquery/dist/jquery.js', 'dist/js/**/*.js'], // make sure jquery is loaded first
-				dest: 'dist/js/compiled.js'
+				src: [
+					'dist/js/libs/requirejs/require.js', 
+					'dist/js/libs/jquery/dist/jquery.js', // make sure jquery is loaded first
+					'dist/js/libs/underscore/underscore.js',
+					'dist/js/**/*.js'
+				],
+				dest: 'dist/js/script.js'
 			}
 		},
 
@@ -40,15 +45,15 @@ module.exports = function (grunt) {
 				banner: '/* Test banner */\n'
 			},
 			target: {
-				src: 'dist/js/compiled.js',
-				dest: 'dist/scripts/compiled.min.js'
+				src: 'dist/js/script.js',
+				dest: 'dist/scripts/script.min.js'
 			}
 		},
 
 		uncss: {
 			dist: {
 				files: [
-					{ src: 'src/*.html', dest: 'dist/css/compiled.min.css' }
+					{ src: 'src/*.html', dest: 'dist/css/styles.min.css' }
 				]
 			}
 		},
@@ -57,7 +62,7 @@ module.exports = function (grunt) {
 			options: {},
 			target: {
 				src: 'dist/css/*.css',
-				dest: 'dist/styles/compiled.min.css'
+				dest: 'dist/styles/styles.min.css'
 			}
 		},
 
@@ -68,6 +73,18 @@ module.exports = function (grunt) {
 			dist: {
 				files: {
 					'dist/index.html': ['src/index.html']
+				}
+			}
+		},
+
+		htmlmin: {
+			dist: {
+				options: {
+					removeComments: true,
+					collapseWhitespace: true
+				},
+				files: {
+					'dist/index.html': 'dist/index.html'
 				}
 			}
 		}
@@ -81,8 +98,9 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-processhtml');
+	grunt.loadNpmTasks('grunt-contrib-htmlmin');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-uncss');
 	
-	grunt.registerTask('default', ['jshint', 'uncss', 'csslint', 'copy', 'concat', 'uglify', 'cssmin', 'clean', 'processhtml']);
+	grunt.registerTask('default', ['jshint', 'uncss', 'csslint', 'copy', 'concat', 'uglify', 'cssmin', 'clean', 'processhtml', 'htmlmin']);
 }
