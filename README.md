@@ -12,4 +12,4 @@ used as dependency management tool. Please read about bower <a href="http://bowe
 Once application is completed then run following command to build your application for production.
 1. Grunt
 
-The built version will be in new directory called /dist in parent directory.
+The built version will be in new directory called /dist in root directory.
