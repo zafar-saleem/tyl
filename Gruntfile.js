@@ -28,6 +28,7 @@ module.exports = function (grunt) {
 		requirejs: {
 			compile: {
 				options: {
+					name: 'app',
 					baseUrl: 'dist/js',
 					mainConfigFile: 'dist/js/main.js',
 					out: 'dist/scripts/scripts.min.js',
@@ -87,14 +88,13 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	
 	grunt.registerTask('default', [
-			'jshint', 
-			'csslint', 
-			'copy', 
-			'requirejs', 
-			'cssmin', 
-			'clean', 
-			'processhtml', 
-			'htmlmin'
-		]
-	);
+		'jshint', 
+		'csslint', 
+		'copy', 
+		'requirejs', 
+		'cssmin', 
+		'clean', 
+		'processhtml', 
+		'htmlmin'
+	]);
 }

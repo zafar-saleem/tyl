@@ -1,4 +1,4 @@
-/*global require:false, define:false */
+/*global require:false */
 require.config({
 	shim: {},
 
