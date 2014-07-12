@@ -3,9 +3,17 @@ define(function () {
 	
 	'use strict';
 	
-	var App = function () {
-		console.log('APP');
-	};
+    var App = (function () {
+
+        var init = function () {
+            console.log('init');
+        };
+
+        return {
+            init: init
+        }
+
+    }());
 
 	return App;
 });

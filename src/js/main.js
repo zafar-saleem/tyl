@@ -9,5 +9,5 @@ require.config({
 });
 
 require(['app'], function (App) {
-    new App();
+    App.init();
 });
