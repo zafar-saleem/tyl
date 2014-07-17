@@ -10,7 +10,6 @@ used as dependency management tool. Please read about bower <a href="http://bowe
 3. Run bower install to download all project dependencies such as jQuery.
 
 Once application is completed then run following command to build your application for production.
-
 1. Grunt
 
 The built version will be in new directory called /dist in root directory.
