@@ -1,5 +1,5 @@
 <h2>Requirements</h2>
-App Boilerplate requires Grunt that needs to be installed and needs, but not must, some basic knowledge of Grunt. 
+App Boilerplate requires Grunt that needs to be installed and requires, but not must, some basic knowledge of Grunt. 
 If you don't know Grunt then please read about it <a href="http://gruntjs.com/">here</a>. Similarly, it also needs some bower knowledge as it is
 used as dependency management tool. Please read about bower <a href="http://bower.io/">here</a>. Install both of these tools before continuing.
 
