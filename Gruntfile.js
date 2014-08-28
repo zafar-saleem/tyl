@@ -74,7 +74,7 @@ module.exports = function (grunt) {
 					'dist/index.html': 'dist/index.html'
 				}
 			}
-		}
+		},
 
 	});
 	
