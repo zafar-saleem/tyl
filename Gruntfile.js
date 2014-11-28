@@ -54,7 +54,11 @@ module.exports = function (grunt) {
 		},
 
 		// Deletes all .js files, but skips min.js files
-		clean: ['dist/js/', 'dist/css/'],
+		clean: {
+			js: ['dist/js/'],
+			css: ['dist/css/'],
+			hooks: ['.git/hooks/pre-commit']
+		},
 
 		processhtml: {
 			dist: {
@@ -76,6 +80,14 @@ module.exports = function (grunt) {
 			}
 		},
 
+		// Run shell commands
+		shell: {
+			hooks: {
+				// Copy the project's pre-commit hook into .git/hooks
+				command: 'cp pre-commit .git/hooks/'
+			}
+		}
+
 	});
 	
 	grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -86,6 +98,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-htmlmin');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
+	grunt.loadNpmTasks('grunt-shell');
 	
 	grunt.registerTask('default', [
 		'jshint', 
@@ -97,4 +110,6 @@ module.exports = function (grunt) {
 		'processhtml', 
 		'htmlmin'
 	]);
+
+	grunt.registerTask('hookmeup', ['clean:hooks', 'shell:hooks']);
 }
