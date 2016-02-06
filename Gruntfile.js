@@ -1,115 +1,170 @@
 module.exports = function (grunt) {
-	grunt.initConfig({
 
-		jshint: {
-			options: {
-				jshintrc: '.jshintrc'
-			},
-			target: {
-				src: 'src/js/*.js'
-			}
-		},
+    grunt.initConfig({
 
-		csslint: {
-			options: {
-				csslintrc: '.csslintrc'
-			},
-			target: {
-				src: 'src/css/*.css'
-			}
-		},
+        jshint: {
+            options: {
+                jshintrc: '.jshintrc'
+            },
+            target: {
+                src: 'src/js/*.js'
+            }
+        },
 
-		copy: {
-			dist: {
-				cwd: 'src/', expand: true, src: '**', dest: 'dist/'
-			}
-		},
+        csslint: {
+            options: {
+                csslintrc: '.csslintrc'
+            },
+            target: {
+                src: 'src/styles/css/**/*.css'
+            }
+        },
 
-		requirejs: {
-			compile: {
-				options: {
-					name: 'app',
-					baseUrl: 'dist/js',
-					mainConfigFile: 'dist/js/main.js',
-					out: 'dist/scripts/scripts.min.js',
-					include: ['libs/requirejs/require.js']
-				}
-			}
-		},
+        copy: {
+            dist: {
+                cwd: 'src/', 
+                expand: true, 
+                src: '**', 
+                dest: 'dist/'
+            }
+        },
 
-		uncss: {
-			dist: {
-				files: [
-					{ src: 'src/*.html', dest: 'dist/css/styles.min.css' }
-				]
-			}
-		},
+        requirejs: {
+            compile: {
+                options: {
+                    baseUrl: 'dist/js',
+                    mainConfigFile: 'dist/js/config.js',
+                    name: 'main',
+                    out: 'dist/scripts/scripts.min.js',
+                    include: 'libs/requirejs/require.js',
+                    optimize: 'uglify',
+                    preserveLicenseComments: false,
+                    useStrict: true,
+                    wrap: true
+                }
+            }
+        },
 
-		cssmin: {
-			options: {},
-			target: {
-				src: 'dist/css/**/*.css',
-				dest: 'dist/styles/styles.min.css'
-			}
-		},
+        cssmin: {
+            options: {},
+            target: {
+                src: 'dist/styles/**/*.css',
+                dest: 'dist/styles/styles.min.css'
+            }
+        },
 
-		// Deletes all .js files, but skips min.js files
-		clean: {
-			js: ['dist/js/'],
-			css: ['dist/css/'],
-			hooks: ['.git/hooks/pre-commit']
-		},
+        clean: {
+            js: ['dist/js/'],
+            css: ['dist/styles/css/'],
+            sass: ['dist/styles/sass/']
+        },
 
-		processhtml: {
-			dist: {
-				files: {
-					'dist/index.html': ['src/index.html']
-				}
-			}
-		},
+        processhtml: {
+            dist: {
+                files: {
+                    'dist/index.html': ['src/index.html']
+                }
+            }
+        },
 
-		htmlmin: {
-			dist: {
-				options: {
-					removeComments: true,
-					collapseWhitespace: true
-				},
-				files: {
-					'dist/index.html': 'dist/index.html'
-				}
-			}
-		},
+        htmlmin: {
+            dist: {
+                options: {
+                    removeComments: true,
+                    collapseWhitespace: true
+                },
+                files: {
+                    'dist/index.html': 'dist/index.html'
+                }
+            }
+        },
 
-		// Run shell commands
-		shell: {
-			hooks: {
-				// Copy the project's pre-commit hook into .git/hooks
-				command: 'cp pre-commit .git/hooks/'
-			}
-		}
-
-	});
-	
-	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-contrib-csslint');
-	grunt.loadNpmTasks('grunt-contrib-copy');
-	grunt.loadNpmTasks('grunt-contrib-cssmin');
-	grunt.loadNpmTasks('grunt-processhtml');
-	grunt.loadNpmTasks('grunt-contrib-htmlmin');
-	grunt.loadNpmTasks('grunt-contrib-clean');
-	grunt.loadNpmTasks('grunt-contrib-requirejs');
-	grunt.loadNpmTasks('grunt-shell');
-	
-	grunt.registerTask('default', [
-		'jshint', 
-		'csslint', 
-		'copy', 
-		'requirejs', 
-		'cssmin', 
-		'clean', 
-		'processhtml', 
-		'htmlmin'
-	]);
-
-	grunt.registerTask('hookmeup', ['clean:hooks', 'shell:hooks']);
+        sass: {
+            dist: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'src/styles/sass',
+                        src: ['*.scss'],
+                        dest: 'src/styles/css',
+                        ext: '.css'
+                    }
+                ]
+            }
+        },
+        
+        concurrent: {
+            dev: {
+                tasks: [
+                    'nodemon',
+                    'watch'
+                ],
+                options: {
+                    limit: 20,
+                    logConcurrentOutput: true
+                }
+            }
+        },
+        
+        nodemon: {
+            dev: {
+                script: 'server.js',
+                options: {
+                }
+            }
+        },
+        
+        watch: {
+            server: {
+                files: [
+                    'src/styles/sass/**/*.scss',
+                    'src/js/**/*.js',
+                    'src/index.html',
+                    'src/templates/*.html'
+                ],
+                tasks: [
+                    'jshint',
+                    'csslint',
+                    'sass',
+                    'copy',
+                    'requirejs',
+                    'cssmin',
+                    'clean',
+                    'processhtml',
+                    'htmlmin'
+                ],
+                options: {
+                    livereload: true
+                }
+            }
+        }
+    });
+    
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-csslint');
+    grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-processhtml');
+    grunt.loadNpmTasks('grunt-contrib-htmlmin');
+    grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-requirejs');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-concurrent');
+    grunt.loadNpmTasks('grunt-nodemon');
+    grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-contrib-sass');
+    
+    grunt.registerTask('default', [
+            'jshint',
+            'csslint',
+            'sass',
+            'copy',
+            'requirejs',
+            'cssmin',
+            'clean',
+            'processhtml', 
+            'htmlmin',
+            'concurrent'
+        ]
+    );
 }
