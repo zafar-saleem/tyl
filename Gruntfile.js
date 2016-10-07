@@ -22,9 +22,9 @@ module.exports = function (grunt) {
 
         copy: {
             dist: {
-                cwd: 'src/', 
-                expand: true, 
-                src: '**', 
+                cwd: 'src/',
+                expand: true,
+                src: '**',
                 dest: 'dist/'
             }
         },
@@ -48,7 +48,7 @@ module.exports = function (grunt) {
         cssmin: {
             options: {},
             target: {
-                src: 'dist/styles/**/*.css',
+                src: 'dist/styles/css/**/*.css',
                 dest: 'dist/styles/styles.min.css'
             }
         },
@@ -92,7 +92,7 @@ module.exports = function (grunt) {
                 ]
             }
         },
-        
+
         concurrent: {
             dev: {
                 tasks: [
@@ -105,7 +105,7 @@ module.exports = function (grunt) {
                 }
             }
         },
-        
+
         nodemon: {
             dev: {
                 script: 'server.js',
@@ -113,7 +113,7 @@ module.exports = function (grunt) {
                 }
             }
         },
-        
+
         watch: {
             server: {
                 files: [
@@ -139,7 +139,7 @@ module.exports = function (grunt) {
             }
         }
     });
-    
+
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-csslint');
     grunt.loadNpmTasks('grunt-contrib-copy');
@@ -153,7 +153,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-sass');
-    
+
     grunt.registerTask('default', [
             'jshint',
             'csslint',
@@ -162,7 +162,7 @@ module.exports = function (grunt) {
             'requirejs',
             'cssmin',
             'clean',
-            'processhtml', 
+            'processhtml',
             'htmlmin',
             'concurrent'
         ]
