@@ -2,6 +2,10 @@
 require.config({
     urlArgs: 'version=' + (new Date()).getTime(),
     baseUrl: 'js',
-    paths: {}
+    paths: {
+        'jquery': 'libs/jquery/dist/jquery',
+        'underscore': 'libs/underscore/underscore',
+        'text': 'plugins/text'
+    }
 });
 
